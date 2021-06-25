@@ -178,15 +178,31 @@ public class PasswordMangr{
         btnAdd.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
         
-        row[0] = txtfAppName.getText();
-        row[1] = txtfUserName.getText();
-        row[2] = txtfPassword.getText();
-        row[3] = txtaNote.getText();
-        
-        // add row to the model
-        model.addRow(row);
-        }
+	        row[0] = txtfAppName.getText();
+	        row[1] = txtfUserName.getText();
+	        row[2] = txtfPassword.getText();
+	        row[3] = txtaNote.getText();
+	        
+	        // add row to the model
+	        model.addRow(row);
+	           
+	        }
         });
+        
+        btnAdd.addActionListener(new ActionListener()
+        {
+           public void actionPerformed(ActionEvent e)
+           {
+        	   	 String a = txtfAppName.getText();
+			     String u = txtfUserName.getText();
+			     String p  = txtfPassword.getText();
+			     String n = txtaNote.getText();
+			        
+			     PasswordDatabase ObjectDb = new PasswordDatabase();
+			     ObjectDb.my_db_update(a, u, p, n);
+           }
+        });
+
 
         btnClear.addActionListener(new ActionListener()
         {
@@ -303,11 +319,19 @@ public class PasswordMangr{
     }
 
 
-    public static void main(String args[])
-    {
-        PasswordMangr frameObj = new PasswordMangr();
-        frameObj.MainFrameDisplay();
-    }
+    public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PasswordMangr frameObj = new PasswordMangr();
+					frameObj.MainFrameDisplay();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
     
 }
+
 
