@@ -1,10 +1,12 @@
 import javax.swing.*;
 import javax.swing.border.Border;
-
+import javax.swing.event.CaretEvent;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.awt.event.*;
 
 
-public class PasswordMangr {
+public class PasswordMangr{
 
     JFrame mainFrame;                           //Declare everything here
     JMenuBar mbar;
@@ -17,7 +19,7 @@ public class PasswordMangr {
     JLabel lblAppName, lblUserName, lblPassword, lblNote, lblTablehead, lblAddInfohead;
     JButton btnAdd,btnClear;
 
-    JTable tableInfo;                                           //shreyas content
+    JTable table;                                           //shreyas content
     JScrollPane scrollPaneTable;
 
     public void SignUp()
@@ -79,32 +81,143 @@ public class PasswordMangr {
         mRate.add(mrComplaint);
 
         mainFrame.setJMenuBar(mbar);
+  
 
+    }
+
+    public void actionListnrMenu()
+    {
+        mfNewWindow.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                PasswordMangr frameObj2 = new PasswordMangr();
+                frameObj2.MainFrameDisplay();
+            }
+        });
+
+        mfSave.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                JOptionPane.showMessageDialog(mainFrame, "Dont worry! We autosave as you add");
+            }
+        });
+
+        mfExit.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
+                //System.exit(0);  //This also can be used
+            }
+
+        });
+
+        meCut.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                txtfAppName.cut();
+                txtfPassword.cut();
+                txtfUserName.cut();
+                txtaNote.cut();
+            }
+        });
+
+        meCopy.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                txtfAppName.copy();
+                txtfPassword.copy();
+                txtfUserName.copy();
+                txtaNote.copy();
+            }
+        });
+
+        mePaste.addActionListener(new ActionListener()  //HAS A PROBLEM, RECTIFICATION NEEDED
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                JOptionPane.showMessageDialog(mainFrame, txtfAppName.getCaret());
+                txtfAppName.paste();
+                txtfPassword.paste();
+                txtfUserName.paste();
+                txtaNote.paste();
+            }
+        });
+
+       
     }
 
 
     public void CTable()
     {
 
-        tablePanel =new JPanel();
-        tablePanel.setBounds(10, 35, 765, 210);
-        tablePanel.setBackground(Color.GREEN);
+        table = new JTable();
         
-        String[] colhead ={"App Name","User Name","Password","Notes"};
-        String[][]data = {{"netfkix","shreyaskv","hey"," "},{"netfkix","shreyaskv","hey"," "},
-            {"netfkix","shreyaskv","hey"," "},{"netfkix","shreyaskv","hey"," "},
-            {"netfkix","shreyaskv","hey0"," "},{"netfkix","shreyaskv","hey" ," "},{"netfkix","shreyaskv","hey"," "},
-            {"netfkix","shreyaskv","hey"," "},{"netfkix","shreyaskv","hey"," "},{"netfkix","shreyaskv","hey"," "},
-            {"netfkix","shreyaskv","hey"," "},{"netfkix","shreyaskv","hey"," "},{"netfkix","shreyaskv","hey"," "},
-            {"netfkix","shreyaskv","hey"," "},{"netfkix","shreyaskv","hey"," "},{"netfkix","shreyaskv","hey"," "}};
+        Object[] columns = { "App Name", "User Name", "Password", "Note" };    // create a table model and set a Column Identifiers to this model
         
-        tableInfo= new JTable(data,colhead);
-        scrollPaneTable=new JScrollPane(tableInfo);
-        scrollPaneTable.setBounds(0,50,765,200);
-        scrollPaneTable.setPreferredSize(new Dimension(755,200));
-        tablePanel.add(scrollPaneTable);
-        mainFrame.add(tablePanel);
+        DefaultTableModel model = new DefaultTableModel();
+        model.setColumnIdentifiers(columns);
+        
+        table.setModel(model);                                                  // set the model to the table
+
+        table.setBackground(Color.CYAN.brighter());
+        table.setForeground(Color.black);
+        Font font = new Font("", 1, 16);
+        table.setFont(font);
+        table.setRowHeight(20);
+
+        scrollPaneTable = new JScrollPane(table);                               //ScrollPane
+        scrollPaneTable.setBounds(10, 30, 760, 210);
+
+        Object[] row = new Object[4];
+        
+        btnAdd.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        
+	        row[0] = txtfAppName.getText();
+	        row[1] = txtfUserName.getText();
+	        row[2] = txtfPassword.getText();
+	        row[3] = txtaNote.getText();
+	        
+	        // add row to the model
+	        model.addRow(row);
+	           
+	        }
+        });
+        
+        btnAdd.addActionListener(new ActionListener()
+        {
+           public void actionPerformed(ActionEvent e)
+           {
+        	   	 String a = txtfAppName.getText();
+			     String u = txtfUserName.getText();
+			     String p  = txtfPassword.getText();
+			     String n = txtaNote.getText();
+			        
+			     PasswordDatabase ObjectDb = new PasswordDatabase();
+			     ObjectDb.my_db_update(a, u, p, n);
+           }
+        });
+
+
+        btnClear.addActionListener(new ActionListener()
+        {
+           public void actionPerformed(ActionEvent e)
+           {
+                txtfAppName.setText("");
+                txtfUserName.setText("");
+                txtfPassword.setText("");
+                txtaNote.setText("");
+           }
+        });
+
+        mainFrame.add(scrollPaneTable);
     }
+
 
     public void Header()
     {
@@ -124,7 +237,7 @@ public class PasswordMangr {
 
     public void Addinfo()
     {
-        AddInfoPanel = new JPanel(new GridBagLayout());           //Panel containing textfields, labels, and buttons of AddInfo
+        AddInfoPanel = new JPanel();           //Panel containing textfields, labels, and buttons of AddInfo
         AddInfoPanel.setBounds(10,280,765,300);
         AddInfoPanel.setBackground(Color.YELLOW);
         AddInfoPanel.setLayout(null);
@@ -152,6 +265,7 @@ public class PasswordMangr {
         txtfAppName = new JTextField();                 //Addinfo textfields start
         txtfAppName.setBounds(160,20,450,30);
         AddInfoPanel.add(txtfAppName);
+        
 
         txtfUserName = new JTextField();
         txtfUserName.setBounds(160,70,450,30);
@@ -197,18 +311,27 @@ public class PasswordMangr {
         Header();
         Addinfo();
         CTable();
-        
+        actionListnrMenu();
 
         mainFrame.setVisible(true);
         mainFrame.setResizable(false);
-        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        mainFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
 
-    public static void main(String args[])
-    {
-        PasswordMangr frameObj = new PasswordMangr();
-        frameObj.MainFrameDisplay();
-    }
+    public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					PasswordMangr frameObj = new PasswordMangr();
+					frameObj.MainFrameDisplay();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
     
 }
+
+
