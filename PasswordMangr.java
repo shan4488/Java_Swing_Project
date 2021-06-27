@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.event.CaretEvent;
@@ -5,22 +6,32 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+//import net.proteanit.sql.DbUtils;
+
 
 public class PasswordMangr{
-
+	
+	static int count = 1;
+	
     JFrame mainFrame;                           //Declare everything here
     JMenuBar mbar;
     JMenu mFile, mEdit, mHelp, mRate;
     JMenuItem mfNewWindow, mfSave, mfExit, meCut, meCopy, mePaste, meRemove;
     JMenuItem mhAboutUs, mhDocs, mhViewLicence, mhSendFeed, mrRateOurApp, mrComplaint; 
-    JPanel AddInfoPanel, tablePanel;  
+    JPanel AddInfoPanel, tablePanel, tableOpsPanel;  
     JTextField txtfAppName, txtfUserName, txtfPassword;
     JTextArea txtaNote;
-    JLabel lblAppName, lblUserName, lblPassword, lblNote, lblTablehead, lblAddInfohead;
-    JButton btnAdd,btnClear;
+    JLabel lblAppName, lblUserName, lblPassword, lblNote, lblTablehead, lblAddInfohead, lblTableOps;
+    JButton btnAdd, btnClear, btnLoadTable, btnDelete, btnUpdate;
 
     JTable table;                                           //shreyas content
     JScrollPane scrollPaneTable;
+    
 
     public void SignUp()
     {
@@ -147,7 +158,6 @@ public class PasswordMangr{
                 txtaNote.paste();
             }
         });
-
        
     }
 
@@ -214,11 +224,188 @@ public class PasswordMangr{
                 txtaNote.setText("");
            }
         });
+        
+        btnLoadTable.addActionListener(new ActionListener()  
+        		{
+                    public void actionPerformed(ActionEvent e)
+                    { 
+                    	if(count == 1)  // This if condition is added to remove multiple loading of data from db to table
+                    	{
+                    	try{  
+                			Class.forName("com.mysql.cj.jdbc.Driver");  
+                			Connection con=DriverManager.getConnection(  
+                			"jdbc:mysql://localhost:3306/passwordmanagerdb","root","$#An4488");  
+                			
+                			Statement st=con.createStatement();
+                			
+                			String fetch = "select * from usersdata"; 
+                			
+                			ResultSet rs = st.executeQuery(fetch);
+                			
+                			while(rs.next())
+                			{
+                			    String ap = rs.getString("appn");
+                			    String us = rs.getString("usern");
+                			    String ps = rs.getString("passwd");
+                			    String nt = rs.getString("note");
+                			    model.addRow(new Object[]{ap, us, ps, nt});
+                			}
+                			
+                			table.setModel(model);
+                			
+                			count++;  //count is a static variable
+                			
+            			}catch(Exception p){ System.out.println(p);} 
+                			
+                    	}	
+                    }
+                });
+        
+        table.addMouseListener(new MouseAdapter()
+        		{
+        		public void mouseClicked(MouseEvent e)
+        		{
+        			int r = table.getSelectedRow();
+        			
+        			txtfAppName.setText(model.getValueAt(r, 0).toString());
+        			txtfUserName.setText(model.getValueAt(r, 1).toString());
+        			txtfPassword.setText(model.getValueAt(r, 2).toString());
+        			txtaNote.setText(model.getValueAt(r, 3).toString());
+        		}
+        		});
+        
+        
+        btnDelete.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			int row = table.getSelectedRow();
+    			
+    			
+    			try{  
+        			Class.forName("com.mysql.cj.jdbc.Driver");  
+        			Connection con=DriverManager.getConnection(  
+        			"jdbc:mysql://localhost:3306/passwordmanagerdb","root","$#An4488");  
+        			
+        			String passwordInrow = (String) model.getValueAt(row, 2);
+        			
+        			PreparedStatement pst = con.prepareStatement("delete from usersdata where passwd=?;"); 
+        			
+        			pst.setString(1,passwordInrow);
+        			
+        			pst.executeUpdate();
+        			
+        			con.close();
+        			
+        			
+    			}
+    			catch(Exception p)
+    			{
+    				System.out.println(p);
+    			}
+    			
+    			if(row>=0)
+    			{
+    				model.removeRow(row);
+    			}
+    			else
+    			{
+    				JOptionPane.showMessageDialog(scrollPaneTable, "Select any row to Delete");
+    			}
+    		}
+    	});
+        
+        
+        btnUpdate.addActionListener(new ActionListener(){
+    		public void actionPerformed(ActionEvent e)
+    		{
+    			int r = table.getSelectedRow();
+    			
+    			try{  
+        			Class.forName("com.mysql.cj.jdbc.Driver");  
+        			Connection con=DriverManager.getConnection(  
+        			"jdbc:mysql://localhost:3306/passwordmanagerdb","root","$#An4488");  
+        			
+        			String UpdtAppN = (String) txtfAppName.getText();
+        			String UpdtUsrN = (String) txtfUserName.getText();
+        			String UpdtPasswd = (String) txtfPassword.getText();
+        			String UpdtNote = (String) txtaNote.getText();
+        			
+        			
+        			PreparedStatement pst = con.prepareStatement("update usersdata set usern=?, passwd=?, note=? where appn=?;"); 
+        			
+        			pst.setString(1,UpdtUsrN);
+        			pst.setString(2,UpdtPasswd);
+        			pst.setString(3,UpdtNote);
+        			pst.setString(4,UpdtAppN);
+        			
+        			pst.executeUpdate();
+        			
+        			con.close();
+        			
+        			
+    			}
+    			catch(Exception p)
+    			{
+    				System.out.println(p);
+    			}
+    			
+    			
+    			
+    			
+    			
+    			if(r>=0)
+    			{
+    				model.setValueAt(txtfAppName.getText(), r, 0);
+    				model.setValueAt(txtfUserName.getText(), r, 1);
+    				model.setValueAt(txtfPassword.getText(), r, 2);
+    				model.setValueAt(txtaNote.getText(), r, 3);
+    			}
+    			else
+    			{
+    				JOptionPane.showMessageDialog(scrollPaneTable, "Select any row to Update");
+    			}
+    		}
+    	});
+        
+        
+        
+        
 
         mainFrame.add(scrollPaneTable);
     }
+    
+    
+    
+    public void TableOps()
+    {
+    	tableOpsPanel = new JPanel();
+    	tableOpsPanel.setLayout(null);
+    	tableOpsPanel.setBounds(620,20,130,200);
+    	tableOpsPanel.setBackground(Color.LIGHT_GRAY);
+    	
+    	
+    	lblTableOps = new JLabel("Table Operations");
+    	lblTableOps.setFont(new Font("Serif",Font.BOLD, 15));
+    	lblTableOps.setBounds(5,10,120,30);
+    	tableOpsPanel.add(lblTableOps);
+    	
+    	btnDelete = new JButton("DELETE");
+    	btnDelete.setBounds(15,50,100,30);
+    	btnDelete.setBackground(Color.BLUE);
+    	tableOpsPanel.add(btnDelete);
+    	
+    	btnUpdate = new JButton("UPDATE");
+    	btnUpdate.setBounds(15,90,100,30);
+    	btnUpdate.setBackground(Color.BLUE);
+    	tableOpsPanel.add(btnUpdate);
+    	
+    	AddInfoPanel.add(tableOpsPanel);
+    	
+    }
 
 
+    
+    
     public void Header()
     {
         lblTablehead = new JLabel("Your Password List ");
@@ -291,6 +478,11 @@ public class PasswordMangr{
         btnClear.setBounds(380,260,100,30);
         btnClear.setBackground(Color.RED);
         AddInfoPanel.add(btnClear);
+        
+        btnLoadTable = new JButton("SHOW PASSWORDS");
+        btnLoadTable.setBounds(200,260,160,30);
+        btnLoadTable.setBackground(Color.ORANGE);
+        AddInfoPanel.add(btnLoadTable);
 
 
         mainFrame.add(AddInfoPanel);
@@ -310,6 +502,7 @@ public class PasswordMangr{
         Menu();
         Header();
         Addinfo();
+        TableOps();
         CTable();
         actionListnrMenu();
 
