@@ -12,7 +12,6 @@ import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
 
@@ -28,26 +27,28 @@ public class AccessPhase {
 
 	        //Sign In part
 
-
-	        JPanel p = new JPanel();							// This os the sigh in panel
+                //SignIn panel
+	        JPanel p = new JPanel();						
 	        p.setLayout(null);
 	        p.setBackground(Color.black);
 
-	        JLabel title = new JLabel("Sign In");
+		//SignIn Label
+	        JLabel title = new JLabel("Sign In");   
 	        title.setFont(new Font("Serif", Font.BOLD, 30));
 	        title.setForeground(Color.white);
 	        title.setSize(150, 35);
 	        title.setLocation(200, 35);
 	        p.add(title);
 	        
-	        
-	        JLabel j2=new JLabel("USERNAME");
+	        //username Label
+	        JLabel j2=new JLabel("USERNAME");           
 	        j2.setFont(new Font("Serif", Font.PLAIN, 15));
 	        j2.setSize(150, 35);
 	        j2.setForeground(Color.white);
 	        j2.setLocation(50, 150);
 	        p.add(j2);
 	        
+		//password label
 	        JLabel j3=new JLabel("PASSWORD");
 	        j3.setFont(new Font("Serif", Font.PLAIN, 15));
 	        j3.setSize(150, 35);
@@ -55,22 +56,25 @@ public class AccessPhase {
 	        j3.setLocation(50, 220);
 	        p.add(j3);
 	        
+		//username textfield
 	        JTextField field1=new JTextField();
 	        field1.setBounds(150, 150, 200, 30);
 	        p.add(field1);
 	        
 	     
-	        
+	        //password textfield
 	        JPasswordField field2=new JPasswordField();
 	        field2.setBounds(150, 220, 200, 30);
 	        p.add(field2);
 	        
+		//login button
 	        JButton but =new JButton("LOGIN");
 	        but.setBounds(150, 300, 100, 40);
 	        but.setFont(new Font("Serif", Font.PLAIN, 15));
 	        but.setForeground(Color.black);
 	        p.add(but);
 	        
+		//reset button
 	        JButton but2 =new JButton("RESET");
 	        but2.setBounds(280, 300, 100, 40);
 	        but2.setFont(new Font("Serif", Font.PLAIN, 15));
