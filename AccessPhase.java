@@ -169,42 +169,51 @@ public class AccessPhase {
 	               "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015",
 	               "2016", "2017", "2018", "2019", "2020", "2021" };
 
+                //Sign Up label
 	               
 	        titlee = new JLabel("Sign Up");
 			titlee.setFont(new Font("Arial", Font.PLAIN, 30));
 			titlee.setSize(300, 30);
 			titlee.setLocation(300, 30);
 			c.add(titlee);
+                        
+         
+         //name label
 
 			name = new JLabel("Name");
 			name.setFont(new Font("Arial", Font.PLAIN, 20));
 			name.setSize(100, 20);
 			name.setLocation(100, 100);
 			c.add(name);
+         // name textfield
 
 			tname = new JTextField();
 			tname.setFont(new Font("Arial", Font.PLAIN, 15));
 			tname.setSize(190, 20);
 			tname.setLocation(200, 100);
 			c.add(tname);
+         //mobile number label
 
 			mno = new JLabel("Mobile");
 			mno.setFont(new Font("Arial", Font.PLAIN, 20));
 			mno.setSize(100, 20);
 			mno.setLocation(100, 150);
 			c.add(mno);
+         //mobile number text field
 
 			tmno = new JTextField();
 			tmno.setFont(new Font("Arial", Font.PLAIN, 15));
 			tmno.setSize(150, 20);
 			tmno.setLocation(200, 150);
 			c.add(tmno);
+         // gender label
 
 			gender = new JLabel("Gender");
 			gender.setFont(new Font("Arial", Font.PLAIN, 20));
 			gender.setSize(100, 20);
 			gender.setLocation(100, 200);
 			c.add(gender);
+         // msle radiobutton
 
 			male = new JRadioButton("Male");
 			male.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -212,6 +221,7 @@ public class AccessPhase {
 			male.setSize(75, 20);
 			male.setLocation(200, 200);
 			c.add(male);
+         //female radobutton
 
 			female = new JRadioButton("Female");
 			female.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -219,53 +229,62 @@ public class AccessPhase {
 			female.setSize(80, 20);
 			female.setLocation(275, 200);
 			c.add(female);
+         //male-female radiobutton group
 
 			gengp = new ButtonGroup();
 			gengp.add(male);
 			gengp.add(female);
+         //date of birth label
 
 			dob = new JLabel("DOB");
 			dob.setFont(new Font("Arial", Font.PLAIN, 20));
 			dob.setSize(100, 20);
 			dob.setLocation(100, 250);
 			c.add(dob);
+         //combobox of dates
 
 			date = new JComboBox(dates);
 			date.setFont(new Font("Arial", Font.PLAIN, 15));
 			date.setSize(50, 20);
 			date.setLocation(200, 250);
 			c.add(date);
+         //combobox of months
+         
 
 			month = new JComboBox(months);
 			month.setFont(new Font("Arial", Font.PLAIN, 15));
 			month.setSize(60, 20);
 			month.setLocation(250, 250);
 			c.add(month);
+         //combobox of years
 
 			year = new JComboBox(years);
 			year.setFont(new Font("Arial", Font.PLAIN, 15));
 			year.setSize(60, 20);
 			year.setLocation(320, 250);
 			c.add(year);
+         //address label
 
 			add = new JLabel("Address");
 			add.setFont(new Font("Arial", Font.PLAIN, 20));
 			add.setSize(100, 20);
 			add.setLocation(100, 300);
 			c.add(add);
-
+         //textarea for address
 			tadd = new JTextArea();
 			tadd.setFont(new Font("Arial", Font.PLAIN, 15));
 			tadd.setSize(200, 75);
 			tadd.setLocation(200, 300);
 			tadd.setLineWrap(true);
 			c.add(tadd);
+         //label for password
 
 			passl = new JLabel("Password");
 			passl.setFont(new Font("Arial", Font.PLAIN, 20));
 			passl.setSize(100, 20);
 			passl.setLocation(100, 400);
 			c.add(passl);
+         //password field
 
 			pass = new JPasswordField();
 			pass.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -284,12 +303,14 @@ public class AccessPhase {
 			cpass.setSize(250, 20);
 			cpass.setLocation(200, 450);
 			c.add(cpass);
+         //terms and condition checkbox
 
 			term = new JCheckBox("Accept Terms And Conditions");
 			term.setFont(new Font("Arial", Font.PLAIN, 15));
 			term.setSize(250, 20);
 			term.setLocation(150, 500);
 			c.add(term);
+         //submit button
 
 			sub = new JButton("Submit");
 			sub.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -297,6 +318,7 @@ public class AccessPhase {
 			sub.setLocation(150, 550);
 			//sub.addActionListener(this);
 			c.add(sub);
+         //reset button
 
 			reset = new JButton("Reset");
 			reset.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -311,6 +333,7 @@ public class AccessPhase {
 			res.setLocation(100, 500);
 			c.add(res);
 
+                        //submit button actionlistener
 			
 			sub.addActionListener((ActionListener) new ActionListener(){
 	            public void actionPerformed(ActionEvent e){
@@ -322,10 +345,14 @@ public class AccessPhase {
 	                int len = mobile.length();
 	                String dateob = (String) date.getSelectedItem() + "/" + (String) month.getSelectedItem() + "/"
 	                        + (String) year.getSelectedItem();
-	        
+                                
+                        //if submit button is pressed
 	                if (e.getSource() == sub) {
+                        //if terms and condition box is checked
 	                    if (term.isSelected()) {
+                            //if password and confirm password are equal
 	                        if (pasword.equals(cnfpass)) {
+                                //if length of mobile number is equal to 10
 	                            if (len == 10) {
 	                                try {
 	                                    try{
@@ -364,6 +391,7 @@ public class AccessPhase {
 	                }           
 	            }
 	        });
+         //reset button actionlistener
 
 	        reset.addActionListener((ActionListener) new ActionListener(){
 	            public void actionPerformed(ActionEvent e){
