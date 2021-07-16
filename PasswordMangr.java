@@ -45,7 +45,7 @@ public class PasswordMangr{
       //Sign in code comes here
   }
 
-  public void Menu()
+  public void Menu()//function consisting of menu options
   {
       mbar = new JMenuBar();
 
@@ -98,7 +98,7 @@ public class PasswordMangr{
 
   }
 
-  public void actionListnrMenu()
+  public void actionListnrMenu()//action listener for menu options
   {
       mfNewWindow.addActionListener(new ActionListener()
       {
@@ -174,7 +174,7 @@ public class PasswordMangr{
   }
 
 
-  public void CTable()
+  public void CTable()//function for table and its options
   {
 
       table = new JTable();
@@ -287,13 +287,13 @@ public class PasswordMangr{
       		});
       
       
-      btnDelete.addActionListener(new ActionListener(){
+      btnDelete.addActionListener(new ActionListener(){         //action listener for deleting the selected password details
   		public void actionPerformed(ActionEvent e)
   		{
   			int row = table.getSelectedRow();
   			
   			
-  			try{  
+  			try{                                     //try statement,where there might be a chance of error
       			Class.forName("com.mysql.cj.jdbc.Driver");  
       			Connection con=DriverManager.getConnection(  
       			"jdbc:mysql://localhost:3306/passwordmanagerdb","root","$#An4488");  
@@ -310,7 +310,7 @@ public class PasswordMangr{
       			
       			
   			}
-  			catch(Exception p)
+  			catch(Exception p)                        //catch statement,to catch the error and to not disturb the normal flow of program
   			{
   				System.out.println(p);
   			}
@@ -327,7 +327,7 @@ public class PasswordMangr{
   	});
       
       
-      btnUpdate.addActionListener(new ActionListener(){
+      btnUpdate.addActionListener(new ActionListener(){                  //action listener for updating the passsword details
   		public void actionPerformed(ActionEvent e)
   		{
   			int r = table.getSelectedRow();
@@ -388,7 +388,7 @@ public class PasswordMangr{
   
   
   
-  public void TableOps()
+  public void TableOps()                                         //funciom for creating table operations
   {
   	tableOpsPanel = new JPanel();
   	tableOpsPanel.setLayout(null);
@@ -436,12 +436,12 @@ public class PasswordMangr{
 
   public void Addinfo()
   {
-      AddInfoPanel = new JPanel();           //Panel containing textfields, labels, and buttons of AddInfo
+      AddInfoPanel = new JPanel();                                          //Panel containing textfields, labels, and buttons of AddInfo
       AddInfoPanel.setBounds(10,280,765,300);
       AddInfoPanel.setBackground(Color.YELLOW);
       AddInfoPanel.setLayout(null);
 
-      lblAppName = new JLabel("App Name");                    //Addinfo label start
+      lblAppName = new JLabel("App Name");                                  //Addinfo label start
       lblAppName.setBounds(45,20,80,20);
       lblAppName.setFont(new Font("Serif",Font.BOLD, 16));
       AddInfoPanel.add(lblAppName);
@@ -504,7 +504,7 @@ public class PasswordMangr{
 
   public void MainFrameDisplay()
   {
-      mainFrame = new JFrame("SecurePass");           // You are free to change 
+      mainFrame = new JFrame("SecurePass");           // Title of the app
       mainFrame.setSize(800,650);
       mainFrame.setLayout(null);
       mainFrame.getContentPane().setBackground(Color.LIGHT_GRAY);
