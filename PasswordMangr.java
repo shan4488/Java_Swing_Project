@@ -20,7 +20,7 @@ public class PasswordMangr{
 	
 	static int count = 1;
 	
-  JFrame mainFrame;                           //Declare everything here
+  JFrame mainFrame;                                               //Declare everything here
   JMenuBar mbar;
   JMenu mFile, mEdit, mHelp, mRate;
   JMenuItem mfNewWindow, mfSave, mfExit, meCut, meCopy, mePaste, meRemove;
@@ -45,11 +45,11 @@ public class PasswordMangr{
       //Sign in code comes here
   }
 
-  public void Menu()//function consisting of menu options
+  public void Menu()                                                 //function consisting of menu options
   {
-      mbar = new JMenuBar();
+      mbar = new JMenuBar();      
 
-      mFile = new JMenu("File");
+      mFile = new JMenu("File");                                     //these are menu names 
       mEdit = new JMenu("Edit");
       mHelp = new JMenu("Help");
       mRate = new JMenu("Rate");
@@ -58,12 +58,12 @@ public class PasswordMangr{
       mfSave = new JMenuItem("Save");
       mfExit = new JMenuItem("Exit");
 
-      meCut = new JMenuItem("Cut");
+      meCut = new JMenuItem("Cut");                                   //these are the options to edit menu
       meCopy = new JMenuItem("Copy");
       mePaste = new JMenuItem("Paste");
       meRemove = new JMenuItem("Remove");
 
-      mhAboutUs = new JMenuItem("About Us");
+      mhAboutUs = new JMenuItem("About Us");   
       mhDocs = new JMenuItem("Docs");
       mhViewLicence = new JMenuItem("View Licence");
       mhSendFeed = new JMenuItem("Send Feedback");
@@ -71,16 +71,16 @@ public class PasswordMangr{
       mrRateOurApp = new JMenuItem("Rate Our App");
       mrComplaint = new JMenuItem("Complaint");
 
-      mbar.add(mFile);
+      mbar.add(mFile);                                                //Here we add menu options to the menu bar
       mbar.add(mEdit);
       mbar.add(mHelp);
       mbar.add(mRate);
 
-      mFile.add(mfNewWindow);
+      mFile.add(mfNewWindow);                                 
       mFile.add(mfSave);
       mFile.add(mfExit);
 
-      mEdit.add(meCut);
+      mEdit.add(meCut);                                                 //Add options to edit
       mEdit.add(meCopy);
       mEdit.add(mePaste);
       mEdit.add(meRemove);
@@ -98,7 +98,7 @@ public class PasswordMangr{
 
   }
 
-  public void actionListnrMenu()//action listener for menu options
+  public void actionListnrMenu()                                             //action listener for menu options
   {
       mfNewWindow.addActionListener(new ActionListener()
       {
@@ -109,7 +109,7 @@ public class PasswordMangr{
           }
       });
 
-      mfSave.addActionListener(new ActionListener()
+      mfSave.addActionListener(new ActionListener()                         //action listener to save password details
       {
           public void actionPerformed(ActionEvent e)
           {
@@ -117,17 +117,17 @@ public class PasswordMangr{
           }
       });
 
-      mfExit.addActionListener(new ActionListener()
+      mfExit.addActionListener(new ActionListener()                         //action listener to exit from the frame
       {
           public void actionPerformed(ActionEvent e)
           {
               mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
-              //System.exit(0);  //This also can be used
+              //System.exit(0);                                              //This also can be used
           }
 
       });
 
-      meCut.addActionListener(new ActionListener()
+      meCut.addActionListener(new ActionListener()                          //action listener to  cut the selected password details
       {
           public void actionPerformed(ActionEvent e)
           {
@@ -138,7 +138,7 @@ public class PasswordMangr{
           }
       });
 
-      meCopy.addActionListener(new ActionListener()
+      meCopy.addActionListener(new ActionListener()                         //Here we copy the password details
       {
           public void actionPerformed(ActionEvent e)
           {
@@ -149,7 +149,7 @@ public class PasswordMangr{
           }
       });
 
-      mePaste.addActionListener(new ActionListener()  //HAS A PROBLEM, RECTIFICATION NEEDED
+      mePaste.addActionListener(new ActionListener()                        //HAS A PROBLEM, RECTIFICATION NEEDED
       {
           public void actionPerformed(ActionEvent e)
           {
@@ -162,7 +162,7 @@ public class PasswordMangr{
       });
      
       
-      mhDocs.addActionListener(new ActionListener()  //HAS A PROBLEM, RECTIFICATION NEEDED
+      mhDocs.addActionListener(new ActionListener()                         //HAS A PROBLEM, RECTIFICATION NEEDED
               {
                   public void actionPerformed(ActionEvent e)
                   {
