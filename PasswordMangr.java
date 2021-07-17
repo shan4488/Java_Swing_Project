@@ -197,7 +197,7 @@ public class PasswordMangr{
 
       Object[] row = new Object[4];
       
-      btnAdd.addActionListener(new ActionListener() {
+      btnAdd.addActionListener(new ActionListener() {                         //action listener to add password detail
       public void actionPerformed(ActionEvent e) {
       
 	        row[0] = txtfAppName.getText();
@@ -205,7 +205,7 @@ public class PasswordMangr{
 	        row[2] = txtfPassword.getText();
 	        row[3] = txtaNote.getText();
 	        
-	        // add row to the model
+	                                                                       // add row to the model
 	        model.addRow(row);
 	           
 	        }
@@ -226,7 +226,7 @@ public class PasswordMangr{
       });
 
 
-      btnClear.addActionListener(new ActionListener()
+      btnClear.addActionListener(new ActionListener()                       //action listener to clear the details
       {
          public void actionPerformed(ActionEvent e)
          {
@@ -241,7 +241,7 @@ public class PasswordMangr{
       		{
                   public void actionPerformed(ActionEvent e)
                   { 
-                  	if(count == 1)  // This if condition is added to remove multiple loading of data from db to table
+                  	if(count == 1)                                          // This if condition is added to remove multiple loading of data from db to table
                   	{
                   	try{  
               			Class.forName("com.mysql.cj.jdbc.Driver");  
@@ -265,7 +265,7 @@ public class PasswordMangr{
               			
               			table.setModel(model);
               			
-              			count++;  //count is a static variable
+              			count++;                                         //count is a static variable
               			
           			}catch(Exception p){ System.out.println(p);} 
               			
@@ -287,13 +287,13 @@ public class PasswordMangr{
       		});
       
       
-      btnDelete.addActionListener(new ActionListener(){         //action listener for deleting the selected password details
+      btnDelete.addActionListener(new ActionListener(){                              //action listener for deleting the selected password details
   		public void actionPerformed(ActionEvent e)
   		{
   			int row = table.getSelectedRow();
   			
   			
-  			try{                                     //try statement,where there might be a chance of error
+  			try{                                                          //try statement,where there might be a chance of error
       			Class.forName("com.mysql.cj.jdbc.Driver");  
       			Connection con=DriverManager.getConnection(  
       			"jdbc:mysql://localhost:3306/passwordmanagerdb","root","$#An4488");  
@@ -310,7 +310,7 @@ public class PasswordMangr{
       			
       			
   			}
-  			catch(Exception p)                        //catch statement,to catch the error and to not disturb the normal flow of program
+  			catch(Exception p)                                              //catch statement,to catch the error and to not disturb the normal flow of program
   			{
   				System.out.println(p);
   			}
@@ -327,7 +327,7 @@ public class PasswordMangr{
   	});
       
       
-      btnUpdate.addActionListener(new ActionListener(){                  //action listener for updating the passsword details
+      btnUpdate.addActionListener(new ActionListener(){                                   //action listener for updating the passsword details
   		public void actionPerformed(ActionEvent e)
   		{
   			int r = table.getSelectedRow();
@@ -388,25 +388,25 @@ public class PasswordMangr{
   
   
   
-  public void TableOps()                                         //funciom for creating table operations
+  public void TableOps()                                                //function for creating table operations
   {
-  	tableOpsPanel = new JPanel();
+  	tableOpsPanel = new JPanel();                               
   	tableOpsPanel.setLayout(null);
   	tableOpsPanel.setBounds(620,20,130,200);
   	tableOpsPanel.setBackground(Color.LIGHT_GRAY);
   	
   	
-  	lblTableOps = new JLabel("Table Operations");
+  	lblTableOps = new JLabel("Table Operations");                   //table operations label
   	lblTableOps.setFont(new Font("Serif",Font.BOLD, 15));
   	lblTableOps.setBounds(5,10,120,30);
   	tableOpsPanel.add(lblTableOps);
   	
-  	btnDelete = new JButton("DELETE");
+  	btnDelete = new JButton("DELETE");                              //delete button
   	btnDelete.setBounds(15,50,100,30);
   	btnDelete.setBackground(Color.BLUE);
   	tableOpsPanel.add(btnDelete);
   	
-  	btnUpdate = new JButton("UPDATE");
+  	btnUpdate = new JButton("UPDATE");                              //update button
   	btnUpdate.setBounds(15,90,100,30);
   	btnUpdate.setBackground(Color.BLUE);
   	tableOpsPanel.add(btnUpdate);
@@ -420,7 +420,7 @@ public class PasswordMangr{
   
   public void Header()
   {
-      lblTablehead = new JLabel("Your Password List ");
+      lblTablehead = new JLabel("Your Password List ");                  //label for password list
       lblTablehead.setBounds(10,5,200,20);
       lblTablehead.setFont(new Font("Serif",Font.BOLD, 16));
       mainFrame.add(lblTablehead);
@@ -441,36 +441,36 @@ public class PasswordMangr{
       AddInfoPanel.setBackground(Color.YELLOW);
       AddInfoPanel.setLayout(null);
 
-      lblAppName = new JLabel("App Name");                                  //Addinfo label start
+      lblAppName = new JLabel("App Name");                                 //App name label
       lblAppName.setBounds(45,20,80,20);
       lblAppName.setFont(new Font("Serif",Font.BOLD, 16));
       AddInfoPanel.add(lblAppName);
 
-      lblUserName = new JLabel("User Name");
+      lblUserName = new JLabel("User Name");                               //Username label
       lblUserName.setBounds(45,70,80,20);
       lblUserName.setFont(new Font("Serif",Font.BOLD, 16));
       AddInfoPanel.add(lblUserName);
 
-      lblPassword = new JLabel("Password");
+      lblPassword = new JLabel("Password");                                //password label
       lblPassword.setBounds(45,120,80,20);
       lblPassword.setFont(new Font("Serif",Font.BOLD, 16));
       AddInfoPanel.add(lblPassword);
 
-      lblNote = new JLabel("Note");
+      lblNote = new JLabel("Note");                                        //note label  
       lblNote.setBounds(45,170,80,20);
       lblNote.setFont(new Font("Serif",Font.BOLD, 16));
       AddInfoPanel.add(lblNote);
 
-      txtfAppName = new JTextField();                 //Addinfo textfields start
+      txtfAppName = new JTextField();                                     //Addinfo textfield
       txtfAppName.setBounds(160,20,450,30);
       AddInfoPanel.add(txtfAppName);
       
 
-      txtfUserName = new JTextField();
+      txtfUserName = new JTextField();                                    //username textfield
       txtfUserName.setBounds(160,70,450,30);
       AddInfoPanel.add(txtfUserName);
 
-      txtfPassword = new JTextField();
+      txtfPassword = new JTextField();                                    //password textfield
       txtfPassword.setBounds(160,120,450,30);
       AddInfoPanel.add(txtfPassword);
 
@@ -481,17 +481,17 @@ public class PasswordMangr{
       txtaNote.setLineWrap(true);
       AddInfoPanel.add(txtaNote);
 
-      btnAdd = new JButton("ADD");
+      btnAdd = new JButton("ADD");                                           //add button
       btnAdd.setBounds(500,260,100,30);
       btnAdd.setBackground(Color.GREEN);
       AddInfoPanel.add(btnAdd);
 
-      btnClear = new JButton("CLEAR");
+      btnClear = new JButton("CLEAR");                                       //clear button
       btnClear.setBounds(380,260,100,30);
       btnClear.setBackground(Color.RED);
       AddInfoPanel.add(btnClear);
       
-      btnLoadTable = new JButton("SHOW PASSWORDS");
+      btnLoadTable = new JButton("SHOW PASSWORDS");                         
       btnLoadTable.setBounds(200,260,160,30);
       btnLoadTable.setBackground(Color.ORANGE);
       AddInfoPanel.add(btnLoadTable);
@@ -504,7 +504,7 @@ public class PasswordMangr{
 
   public void MainFrameDisplay()
   {
-      mainFrame = new JFrame("SecurePass");           // Title of the app
+      mainFrame = new JFrame("SecurePass");                         // Title of the app
       mainFrame.setSize(800,650);
       mainFrame.setLayout(null);
       mainFrame.getContentPane().setBackground(Color.LIGHT_GRAY);
