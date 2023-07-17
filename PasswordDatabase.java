@@ -10,7 +10,7 @@ public class PasswordDatabase {
 			try{  
 		Class.forName("com.mysql.cj.jdbc.Driver");  
 		Connection con=DriverManager.getConnection(  
-		"jdbc:mysql://localhost:3306/passwordmanagerdb","root","$#An4488");  
+		"jdbc:mysql://localhost:3306/passwordmanagerdb","root","");  
 		Statement st=con.createStatement();  
 		
 		// Adding record 
